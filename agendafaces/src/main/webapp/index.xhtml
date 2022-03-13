@@ -4,26 +4,47 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
-      
-<h:head>Listado Agenda</h:head>
-<body>
 
-	<p:dataTable value="#{cargaContactos}" var="contacto" paginator="true" rows="10">
-		<p:column>    				
-        	<f:facet name = "header">Nombre</f:facet>    				
-             #{contacto.nombre}
-        </p:column>
-        
-        <p:column>    				
-        	<f:facet name = "header">Apellidos</f:facet>    				
-             #{contacto.apellidos}
-        </p:column>
-        
-        <p:column>    				
-        	<f:facet name = "header">Edad</f:facet>    				
-             #{contacto.edad}
-        </p:column>
-	</p:dataTable>
+    <h:head></h:head>
+    <body>
+        <h2>Listado Agenda</h2>
+        <p:dataTable value="#{cargaContactos}" var="contacto" paginator="true" rows="10">
+            <p:column>    				
+                <f:facet name = "header">Nombre</f:facet>    				
+                    #{contacto.nombre}
+            </p:column>
 
-</body> 
+            <p:column>    				
+                <f:facet name = "header">Apellidos</f:facet>    				
+                    #{contacto.apellidos}
+            </p:column>
+
+            <p:column>    				
+                <f:facet name = "header">Edad</f:facet>    				
+                    #{contacto.edad}
+            </p:column>
+
+            <p:column>    				
+                <f:facet name = "header">Direccion</f:facet>    				
+                    #{contacto.direccion}
+            </p:column>
+
+            <p:column>
+                <f:facet name = "header">Tipo</f:facet>
+                    #{contacto.tipoContacto.nombre}                
+            </p:column>
+
+            <p:column>
+                <f:facet name = "header">Medios</f:facet>
+                <p:repeat value="#{contacto.medios}" var="contactoMedio">
+                    <p:outputLabel value="#{contactoMedio.valor}"/><br/>
+                </p:repeat>               
+            </p:column>
+            <p:column>
+                <h:form>
+                    <h:commandButton type="submit" value="Editar" action="#{contactoFormBean.actualizaContacto(contacto.id)}" class="btn btn-sm btn-primary"/>
+                </h:form>
+            </p:column>
+        </p:dataTable>
+    </body> 
 </html>

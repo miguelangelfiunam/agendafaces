@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit this template
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <h:head>
+        <!--<script src="/agendafaces/js/jquery-3.6.0.min.js" type="text/javascript"></script>-->
+    </h:head>
+    <h:body>
+        <div class="card">
+            <style>
+                /* reset on the showcase style*/
+                body .ui-panelgrid .ui-panelgrid-cell {
+                    background-color: transparent;
+                }
+
+                /* example use of styles for your form */
+                .my-heading-row {
+                    background-color: var(--surface-c);
+                    font-weight: bold;
+                }
+            </style>
+            <h:form id="formContacto">
+                <p:panelGrid columns="4"
+                             columnClasses="ui-g-12 ui-md-3 ui-lg-3, ui-g-12 ui-md-9 ui-lg-9, ui-g-12 ui-md-3 ui-lg-3, ui-g-12 ui-md-9 ui-lg-9"
+                             layout="grid"
+                             styleClass="ui-panelgrid-blank ui-fluid"
+                             style="border:0px none; background-color:transparent;">
+
+                    <p:row styleClass="my-heading-row">
+                        Contacto
+                    </p:row>
+
+                    <p:outputLabel for="@next" value="Nombre"/>
+                    <p:inputText value="#{contactoFormBean.nombre}"/>
+
+                    <p:outputLabel for="@next" value="Apellidos"/>
+                    <p:inputText value="#{contactoFormBean.apellidos}"/>
+
+                    <p:outputLabel for="@next" value="Edad"/>
+                    <p:inputText value="#{contactoFormBean.edad}" type="number"/>
+
+                    <p:outputLabel for="@next" value="Direccion"/>
+                    <p:inputText value="#{contactoFormBean.direccion}"/>
+
+                    <p:outputLabel for="@next" value="Tipo de contacto"/>
+                    <p:selectOneMenu id="option" value="#{contactoFormBean.tipoContacto}">
+                        <f:selectItem itemLabel="Select One" itemValue=""/>
+                        <f:selectItems value="#{cargaTiposContacto}" var="tipoCatalogo" itemLabel="#{tipoCatalogo.nombre}" itemValue="#{tipoCatalogo.id}"/>
+                    </p:selectOneMenu>
+
+                    <p:inputText type="hidden" value="#{contactoFormBean.id}"/>
+                </p:panelGrid>
+                <p:row>
+                    <p:column styleClass="ui-grid-col-12">
+                        <p:commandButton value="Accept" styleClass="p-mr-2" style="width: auto"/>
+                        <p:commandButton value="Reject" styleClass="p-mr-2" style="width: auto"/>
+                        <p:commandButton value="Refer" style="width: auto" />
+                    </p:column>
+                </p:row>
+            </h:form>
+            
+            <h:form id="formMedios">
+                <p:panelGrid columns="3"
+                             columnClasses="ui-g-4 ui-md-4 ui-lg-3, ui-g-2 ui-md-2 ui-lg-3,  ui-g-1 ui-md-1 ui-lg-1"
+                             layout="grid"
+                             styleClass="ui-panelgrid-blank ui-fluid"
+                             style="border:0px none; background-color:transparent;"
+                             id="mediosPanel">
+                    <p:row styleClass="my-heading-row" >
+                        Medios de Contacto 
+                        <p:commandButton value="Agregar" action="#{contactoFormBean.addMedioContacto()}" immediate="true"  styleClass="ui-button-success" >
+                            <f:ajax render="formMedios" />
+                        </p:commandButton>
+                        <p:inputText value="" id="ejemplo"/>
+                    </p:row>
+                    <p:repeat value="#{contactoFormBean.medios}" var="medio" varStatus="estatus">
+                        <p:selectOneMenu value="#{medio.id}" onchange="alert('Hola');">
+                            <f:selectItem itemLabel="Select One" itemValue=""/>
+                            <f:selectItems value="#{cargaMedioContacto}" var="medioCatalogo" itemLabel="#{medioCatalogo.nombre}" itemValue="#{medioCatalogo.id}" />
+                        </p:selectOneMenu>
+                    </p:repeat>
+                    <p:repeat value="#{contactoFormBean.medios}" var="medio" varStatus="estatus">
+                        <p:inputText value="#{medio.valor} - #{estatus.index}"/>
+                        <br />
+                    </p:repeat>
+                    <p:repeat value="#{contactoFormBean.medios}" var="medio" varStatus="estatus">
+                        <p:commandButton value="Borrar" action="#{contactoFormBean.removeMedioContacto(estatus.index)}" immediate="true" styleClass="ui-button-danger">
+                            <f:ajax render="formMedios" />
+                        </p:commandButton>
+                        <br/>
+                    </p:repeat>
+                </p:panelGrid>
+
+                <p:row>
+                    <p:column styleClass="ui-grid-col-12">
+                        <p:commandButton value="Accept" styleClass="p-mr-2" style="width: auto"/>
+                        <p:commandButton value="Reject" styleClass="p-mr-2" style="width: auto"/>
+                        <p:commandButton value="Refer" style="width: auto" />
+                    </p:column>
+                </p:row>
+            </h:form>
+        </div>
+    </h:body>
+</html>

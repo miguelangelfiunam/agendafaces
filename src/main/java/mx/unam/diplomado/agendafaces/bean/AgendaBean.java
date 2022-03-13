@@ -1,16 +1,16 @@
 package mx.unam.diplomado.agendafaces.bean;
 
-import jakarta.enterprise.inject.Model;
-import jakarta.enterprise.inject.Produces;
-import mx.unam.diplomado.agendafaces.vo.Contacto;
-import mx.unam.diplomado.ejb.IAgendaEJBLocal;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.naming.InitialContext;
+
+import jakarta.enterprise.inject.Model;
+import jakarta.enterprise.inject.Produces;
+import mx.unam.diplomado.agendafaces.vo.Contacto;
 import mx.unam.diplomado.agendafaces.vo.MedioContacto;
 import mx.unam.diplomado.agendafaces.vo.TipoContacto;
+import mx.unam.diplomado.ejb.IAgendaEJBLocal;
 
 @Model
 public class AgendaBean {
