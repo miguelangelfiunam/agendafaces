@@ -54,11 +54,6 @@ public class AgendaEJB implements IAgendaEJBLocal {
     }
 
     @Override
-    public void insertaContacto(Contacto contacto) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public Contacto cargaContacto(Integer id) {
         daoAgenda = AgendaDAOJDBC.getInstance();
         daoTipoContacto = TipoContactoDAOJDBC.getInstance();

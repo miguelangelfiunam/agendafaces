@@ -9,9 +9,7 @@ import jakarta.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import javax.naming.InitialContext;
 import mx.unam.diplomado.agendafaces.vo.MedioContacto;
-import mx.unam.diplomado.ejb.IAgendaEJBLocal;
 
 @Named
 @SessionScoped

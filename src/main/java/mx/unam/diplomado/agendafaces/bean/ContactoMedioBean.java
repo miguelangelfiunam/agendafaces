@@ -16,7 +16,7 @@ import java.io.Serializable;
 @SessionScoped
 public class ContactoMedioBean implements Serializable {
     
-    private static final long serialVersionUID = -1146681490006848089L;
+    private static final long serialVersionUID = -1146681490006048089L;
     private Integer id;
     private String valor;
     private Integer idContacto;
@@ -64,10 +64,5 @@ public class ContactoMedioBean implements Serializable {
 
     public void setIdMedio(Integer idMedio) {
         this.idMedio = idMedio;
-    }
-    
-    public String addContactoMedio(){
-        int i = 0;
-        return "contacto";
     }
 }

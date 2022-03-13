@@ -18,5 +18,4 @@ public interface IAgendaEJBLocal {
 
     List<MedioContacto> cargaMediosContacto();
     
-    void insertaContacto(Contacto contacto);
 }
