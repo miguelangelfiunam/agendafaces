@@ -35,7 +35,7 @@ public class AgendaEJB implements IAgendaEJBLocal {
             TipoContacto tipoContacto = daoTipoContacto.getTipoContactoUsuario(contacto.getId());
             contacto.setTipoContacto(tipoContacto);
 
-            List<ContactoMedio> contactoMedios = daoContactoMedio.getContactoMediosPorUsuario(contacto.getId());
+            List<ContactoMedio> contactoMedios = daoContactoMedio.getContactoMediosPorContacto(contacto.getId());
             contacto.setMedios(contactoMedios);
         }
         return contactos;
@@ -63,10 +63,40 @@ public class AgendaEJB implements IAgendaEJBLocal {
         TipoContacto tipoContacto = daoTipoContacto.getTipoContactoUsuario(contacto.getId());
         contacto.setTipoContacto(tipoContacto);
 
-        List<ContactoMedio> contactoMedios = daoContactoMedio.getContactoMediosPorUsuario(contacto.getId());
+        List<ContactoMedio> contactoMedios = daoContactoMedio.getContactoMediosPorContacto(contacto.getId());
         contacto.setMedios(contactoMedios);
 
         return contacto;
+    }
+
+    @Override
+    public void insertaContactoMedio(ContactoMedio contactoMedio) {
+        daoContactoMedio = ContactoMedioDAOJDBC.getInstance();
+        daoContactoMedio.insertaContactoMedio(contactoMedio);
+    }
+
+    @Override
+    public List<ContactoMedio> getContactoMediosPorContacto(Integer id_contacto) {
+        daoContactoMedio = ContactoMedioDAOJDBC.getInstance();
+        return daoContactoMedio.getContactoMediosPorContacto(id_contacto);
+    }
+
+    @Override
+    public ContactoMedio getContactoMedio(Integer id_contacto_medio) {
+        daoContactoMedio = ContactoMedioDAOJDBC.getInstance();
+        return daoContactoMedio.getContactoMedio(id_contacto_medio);
+    }
+
+    @Override
+    public void actualizaContactoMedio(ContactoMedio contactoMedio) {
+        daoContactoMedio = ContactoMedioDAOJDBC.getInstance();
+        daoContactoMedio.actualizaContactoMedio(contactoMedio);
+    }
+
+    @Override
+    public void borraContactoMedio(Integer id_contacto_medios) {
+        daoContactoMedio = ContactoMedioDAOJDBC.getInstance();
+        daoContactoMedio.borraContactoMedio(id_contacto_medios);
     }
 
 }

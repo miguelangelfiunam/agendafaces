@@ -27,7 +27,7 @@ public class ContactoMedioDAOJDBC implements IContactoMedioDAO {
     }
 
     @Override
-    public List<ContactoMedio> getContactoMediosPorUsuario(Integer id_usuario) {
+    public List<ContactoMedio> getContactoMediosPorContacto(Integer id_contacto) {
         DBConnection db = JDBCUtil.getInstance();
         List<ContactoMedio> contactoMedios = null;
         String query = "SELECT "
@@ -45,7 +45,7 @@ public class ContactoMedioDAOJDBC implements IContactoMedioDAO {
                 + "AND c.id_contacto = ?;";
         try ( Connection conn = db.getConnection();  PreparedStatement ps = conn.prepareStatement(query);) {
             contactoMedios = new ArrayList<>();
-            ps.setInt(1, id_usuario);
+            ps.setInt(1, id_contacto);
             try ( ResultSet rs = ps.executeQuery();) {
                 while (rs.next()) {
                     ContactoMedio contactoMedio = new ContactoMedio();
@@ -65,8 +65,81 @@ public class ContactoMedioDAOJDBC implements IContactoMedioDAO {
     }
 
     @Override
-    public ContactoMedio getContactosMedios(Integer id_contacto_medios) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public ContactoMedio getContactoMedio(Integer id_contacto_medios) {
+        DBConnection db = JDBCUtil.getInstance();
+        ContactoMedio contactoMedio = null;
+        String query = "SELECT "
+                + " tcm.id_contactos_medios, "
+                + " tcm.id_contacto, "
+                + " tcm.id_medio_contacto, "
+                + " tcm.vc_valor "
+                + "FROM "
+                + " t_contactos_medios AS tcm "
+                + "WHERE "
+                + " tcm.id_contactos_medios = ?";
+        try ( Connection conn = db.getConnection();  PreparedStatement ps = conn.prepareStatement(query);) {
+            ps.setInt(1, id_contacto_medios);
+            try ( ResultSet rs = ps.executeQuery();) {
+                if (rs.next()) {
+                    contactoMedio = new ContactoMedio();
+                    int i = 1;
+                    contactoMedio.setId_contacto_medio(rs.getInt(i++));
+                    contactoMedio.setId_contacto(rs.getInt(i++));
+                    contactoMedio.setId_medio_contacto(rs.getInt(i++));
+                    contactoMedio.setValor(rs.getString(i++));
+                }
+            }
+        } catch (SQLException sqlx) {
+
+        }
+        return contactoMedio;
+    }
+
+    @Override
+    public void insertaContactoMedio(ContactoMedio contactoMedio) {
+        DBConnection db = JDBCUtil.getInstance();
+        String query = "INSERT INTO t_contactos_medios (id_contacto, id_medio_contacto, vc_valor)"
+                + "VALUES (?, ?, ?);";
+        try ( Connection conn = db.getConnection();  PreparedStatement ps = conn.prepareStatement(query);) {
+            ps.setInt(1, contactoMedio.getId_contacto());
+            ps.setInt(2, contactoMedio.getId_medio_contacto());
+            ps.setString(3, contactoMedio.getValor());
+
+            ps.executeUpdate();
+        } catch (SQLException sqlx) {
+
+        }
+    }
+
+    @Override
+    public void actualizaContactoMedio(ContactoMedio contactoMedio) {
+        DBConnection db = JDBCUtil.getInstance();
+        String query = "UPDATE  t_contactos_medios SET  id_medio_contacto = ?, vc_valor = ? WHERE id_contactos_medios = ?";
+        try ( Connection conn = db.getConnection();  PreparedStatement stUpdate = conn.prepareStatement(query);) {
+            stUpdate.setInt(1, contactoMedio.getId_medio_contacto());
+            stUpdate.setString(2, contactoMedio.getValor());
+            stUpdate.setInt(3, contactoMedio.getId_contacto_medio());
+
+            if (stUpdate.executeUpdate() == 0) {
+                throw new IllegalStateException("Error al actualizar contactoMedio");
+            }
+        } catch (Exception e) {
+            throw new IllegalStateException(e.getMessage());
+        }
+    }
+
+    @Override
+    public void borraContactoMedio(Integer id_contacto_medios) {
+        DBConnection db = JDBCUtil.getInstance();
+        String query = "DELETE FROM t_contactos_medios WHERE id_contactos_medios = ?;";
+        try ( Connection conn = db.getConnection();  PreparedStatement stUpdate = conn.prepareStatement(query);) {
+            stUpdate.setInt(1, id_contacto_medios);
+            if (stUpdate.executeUpdate() == 0) {
+                throw new IllegalStateException("Error al borrar contactoMedio");
+            }
+        } catch (Exception e) {
+            throw new IllegalStateException(e.getMessage());
+        }
     }
 
 }

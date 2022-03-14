@@ -65,47 +65,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                     </p:column>
                 </p:row>
             </h:form>
-            
-            <h:form id="formMedios">
-                <p:panelGrid columns="3"
-                             columnClasses="ui-g-4 ui-md-4 ui-lg-3, ui-g-2 ui-md-2 ui-lg-3,  ui-g-1 ui-md-1 ui-lg-1"
-                             layout="grid"
-                             styleClass="ui-panelgrid-blank ui-fluid"
-                             style="border:0px none; background-color:transparent;"
-                             id="mediosPanel">
-                    <p:row styleClass="my-heading-row" >
-                        Medios de Contacto 
-                        <p:commandButton value="Agregar" action="#{contactoFormBean.addMedioContacto()}" immediate="true"  styleClass="ui-button-success" >
-                            <f:ajax render="formMedios" />
-                        </p:commandButton>
-                        <p:inputText value="" id="ejemplo"/>
-                    </p:row>
-                    <p:repeat value="#{contactoFormBean.medios}" var="medio" varStatus="estatus">
-                        <p:selectOneMenu value="#{medio.id}" onchange="alert('Hola');">
-                            <f:selectItem itemLabel="Select One" itemValue=""/>
-                            <f:selectItems value="#{cargaMedioContacto}" var="medioCatalogo" itemLabel="#{medioCatalogo.nombre}" itemValue="#{medioCatalogo.id}" />
-                        </p:selectOneMenu>
-                    </p:repeat>
-                    <p:repeat value="#{contactoFormBean.medios}" var="medio" varStatus="estatus">
-                        <p:inputText value="#{medio.valor} - #{estatus.index}"/>
-                        <br />
-                    </p:repeat>
-                    <p:repeat value="#{contactoFormBean.medios}" var="medio" varStatus="estatus">
-                        <p:commandButton value="Borrar" action="#{contactoFormBean.removeMedioContacto(estatus.index)}" immediate="true" styleClass="ui-button-danger">
-                            <f:ajax render="formMedios" />
-                        </p:commandButton>
-                        <br/>
-                    </p:repeat>
-                </p:panelGrid>
-
-                <p:row>
-                    <p:column styleClass="ui-grid-col-12">
-                        <p:commandButton value="Accept" styleClass="p-mr-2" style="width: auto"/>
-                        <p:commandButton value="Reject" styleClass="p-mr-2" style="width: auto"/>
-                        <p:commandButton value="Refer" style="width: auto" />
-                    </p:column>
-                </p:row>
-            </h:form>
         </div>
     </h:body>
 </html>

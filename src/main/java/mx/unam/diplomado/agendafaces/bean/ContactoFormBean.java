@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.naming.InitialContext;
+import mx.unam.diplomado.agendafaces.bean.MedioBean;
 import mx.unam.diplomado.agendafaces.vo.Contacto;
 import mx.unam.diplomado.agendafaces.vo.ContactoMedio;
 import mx.unam.diplomado.ejb.IAgendaEJBLocal;

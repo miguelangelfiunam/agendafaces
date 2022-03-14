@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit this template
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <h:head>
+    </h:head>
+    <h:body>
+        <div class="card">
+            <style>
+                /* reset on the showcase style*/
+                body .ui-panelgrid .ui-panelgrid-cell {
+                    background-color: transparent;
+                }
+
+                /* example use of styles for your form */
+                .my-heading-row {
+                    background-color: var(--surface-c);
+                    font-weight: bold;
+                }
+            </style>
+            <p:dataTable value="#{contactoMedioBean.listaContactosMedioBD}" var="medio" paginator="true" rows="10" id="tabla">
+                <p:column>    				
+                    <f:facet name = "header">ID</f:facet>    				
+                        #{medio.id_contacto_medio}
+                </p:column>
+                <p:column>    				
+                    <f:facet name = "header">Medio</f:facet>    
+                    <p:repeat value="#{cargaMedioContacto}" var="medioCatalogo">
+                        <p:outputLabel rendered="#{medioCatalogo.id eq medio.id_medio_contacto}"> #{medioCatalogo.nombre}</p:outputLabel>
+                    </p:repeat>
+                </p:column>
+                <p:column>    				
+                    <f:facet name = "header">Valor</f:facet>    				
+                        #{medio.valor}
+                </p:column>
+                <p:column>
+                    <h:form>
+                        <h:commandButton value="Borrar" action="#{contactoMedioBean.removeMedioContacto(medio.id_contacto_medio)}" styleClass="ui-button-danger">
+                            <f:ajax render="tabla" />
+                        </h:commandButton>
+                        <h:commandButton value="Editar" action="#{contactoMedioFormBean.editarContactoMedio(medio.id_contacto_medio)}" styleClass="ui-button-success">
+                            
+                        </h:commandButton>
+                    </h:form>
+                </p:column>
+            </p:dataTable>
+            <h:form>
+                <h:commandButton value="Insertar" action="#{contactoMedioFormBean.vistaInsertaContactoMedio(contactoMedioBean.id_contacto)}" styleClass="ui-button-danger">
+                </h:commandButton>
+            </h:form>
+        </div>
+    </h:body>
+</html>

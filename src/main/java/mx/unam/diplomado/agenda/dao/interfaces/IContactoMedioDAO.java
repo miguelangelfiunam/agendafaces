@@ -5,8 +5,14 @@ import mx.unam.diplomado.agendafaces.vo.*;
 
 public interface IContactoMedioDAO {
 
-    List<ContactoMedio> getContactoMediosPorUsuario(Integer id_usuario);
+    List<ContactoMedio> getContactoMediosPorContacto(Integer id_usuario);
 
-    ContactoMedio getContactosMedios(Integer id_contacto_medios);
+    ContactoMedio getContactoMedio(Integer id_contacto_medios);
+
+    void insertaContactoMedio(ContactoMedio contactoMedio);
+    
+    void actualizaContactoMedio(ContactoMedio contactoMedio);
+    
+    void borraContactoMedio(Integer id_contacto_medios);
 
 }

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit this template
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <h:head>
+    </h:head>
+    <h:body>
+        <div class="card">
+            <style>
+                /* reset on the showcase style*/
+                body .ui-panelgrid .ui-panelgrid-cell {
+                    background-color: transparent;
+                }
+
+                /* example use of styles for your form */
+                .my-heading-row {
+                    background-color: var(--surface-c);
+                    font-weight: bold;
+                }
+            </style>
+            <h:form >
+                <div class="card">
+                    <h5>
+                        <p:outputLabel rendered="#{contactoMedioFormBean.id eq 0}">Insertar Medio de Contacto</p:outputLabel>
+                        <p:outputLabel rendered="#{contactoMedioFormBean.id > 0}">Editar Medio de Contacto</p:outputLabel>
+                    </h5>
+
+                    <div class="p-field p-grid">
+                        <div class="p-col">
+                            <p:selectOneMenu value="#{contactoMedioFormBean.idMedio}" id="medioID">
+                                <f:selectItem itemLabel="Select One" itemValue=""/>
+                                <f:selectItems value="#{cargaMedioContacto}" var="medioCatalogo" itemLabel="#{medioCatalogo.nombre}" itemValue="#{medioCatalogo.id}" />
+                            </p:selectOneMenu>
+                        </div>
+                    </div>
+                    <div class="p-field p-grid">
+                        <div class="p-col">
+                            <p:inputText id="valor" placeholder="Lastname" value="#{contactoMedioFormBean.valor}"/>
+                        </div>
+                    </div>
+
+                    <div class="p-field p-grid">
+                        <div class="p-col">
+                            <p:inputText value="#{contactoMedioFormBean.id}"/>
+                        </div>
+                    </div>
+                    <div class="p-field p-grid">
+                        <div class="p-col">
+                            <p:inputText value="#{contactoMedioFormBean.idContacto}"/>
+                        </div>
+                    </div>
+                    <h:commandButton value="Enviar" action="#{contactoMedioFormBean.insertaContactoMedio()}" rendered="#{contactoMedioFormBean.id eq 0}">
+
+                    </h:commandButton>
+                    
+                    <h:commandButton value="Actualizar" action="#{contactoMedioFormBean.actualizaContactoMedio()}" rendered="#{contactoMedioFormBean.id > 0}">
+
+                    </h:commandButton>
+
+                </div>
+            </h:form>
+        </div>
+    </h:body>
+</html>

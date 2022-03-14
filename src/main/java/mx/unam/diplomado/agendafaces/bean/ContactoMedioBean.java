@@ -4,9 +4,14 @@
  */
 package mx.unam.diplomado.agendafaces.bean;
 
+//import jakarta.enterprise.context.RequestScoped;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Named;
 import java.io.Serializable;
+import java.util.List;
+import javax.naming.InitialContext;
+import mx.unam.diplomado.agendafaces.vo.ContactoMedio;
+import mx.unam.diplomado.ejb.IAgendaEJBLocal;
 
 /**
  *
@@ -15,54 +20,59 @@ import java.io.Serializable;
 @Named
 @SessionScoped
 public class ContactoMedioBean implements Serializable {
-    
-    private static final long serialVersionUID = -1146681490006048089L;
-    private Integer id;
-    private String valor;
-    private Integer idContacto;
-    private Integer idMedio;
 
-    public ContactoMedioBean(Integer idContacto) {
-        this.idContacto = idContacto;
-    }
+    private static final long serialVersionUID = -1146681490006048089L;
+
+    private List<ContactoMedio> listaContactosMedioBD;
+    private int id_contacto;
 
     public ContactoMedioBean() {
     }
 
-    public ContactoMedioBean(Integer id, String valor) {
-        this.id = id;
-        this.valor = valor;
+    public List<ContactoMedio> getListaContactosMedioBD() {
+        return listaContactosMedioBD;
     }
 
-    public Integer getId() {
-        return id;
+    public void setListaContactosMedioBD(List<ContactoMedio> listaContactosMedioBD) {
+        this.listaContactosMedioBD = listaContactosMedioBD;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public int getId_contacto() {
+        return id_contacto;
     }
 
-    public String getValor() {
-        return valor;
+    public void setId_contacto(int id_contacto) {
+        this.id_contacto = id_contacto;
     }
 
-    public void setValor(String valor) {
-        this.valor = valor;
+    public String editarContactosMedio(int idContacto) {
+        IAgendaEJBLocal service = null;
+        try {
+            InitialContext ctx = new InitialContext();
+            service = (IAgendaEJBLocal) ctx.lookup("java:global/agendafaces/AgendaEJB!mx.unam.diplomado.ejb.IAgendaEJBLocal");
+            if (service != null) {
+                listaContactosMedioBD = service.getContactoMediosPorContacto(idContacto);
+                this.id_contacto = idContacto;
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return "contactomedio";
     }
 
-    public Integer getIdContacto() {
-        return idContacto;
+    public String removeMedioContacto(int id_contacto_medio) {
+        IAgendaEJBLocal service = null;
+        try {
+            InitialContext ctx = new InitialContext();
+            service = (IAgendaEJBLocal) ctx.lookup("java:global/agendafaces/AgendaEJB!mx.unam.diplomado.ejb.IAgendaEJBLocal");
+            if (service != null) {
+                service.borraContactoMedio(id_contacto_medio);
+                listaContactosMedioBD = service.getContactoMediosPorContacto(this.id_contacto);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return "contactomedio";
     }
 
-    public void setIdContacto(Integer idContacto) {
-        this.idContacto = idContacto;
-    }
-
-    public Integer getIdMedio() {
-        return idMedio;
-    }
-
-    public void setIdMedio(Integer idMedio) {
-        this.idMedio = idMedio;
-    }
 }

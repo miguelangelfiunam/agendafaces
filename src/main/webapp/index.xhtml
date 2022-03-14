@@ -43,8 +43,15 @@
             <p:column>
                 <h:form>
                     <h:commandButton type="submit" value="Editar" action="#{contactoFormBean.actualizaContacto(contacto.id)}" class="btn btn-sm btn-primary"/>
+                    <h:commandButton type="submit" value="Editar CM" action="#{contactoMedioBean.editarContactosMedio(contacto.id)}" class="btn btn-sm btn-primary"/>
                 </h:form>
             </p:column>
         </p:dataTable>
+        <p:outputLabel>
+            Profesor intente hacer la actualizacion de los medios de contacto pero no me funcionó <br/>
+            La parte de obtener la información como lo pide el ejercicio quedó bien, aunque me faltaron detalles como actualizaciones <br/>
+            Entendí como debe ir mi proyecto personal y ahí trataré de que quedé bien su CRUD <br/>
+            Fue más pelearme con JSF y el servidor de wildfly que de repente se moria por extraña razón <br/>
+        </p:outputLabel> 
     </body> 
 </html>
